@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecureCampus | Ethical Security for Education</title>
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #333333;
+            --banner-color: #4a6fa5;
+            --card-bg: #f9f9f9;
+            --button-bg: #f0f0f0;
+            --link-color: #1a73e8;
+            --alert-color: #d32f2f;
+            --tip-color: #2e7d32;
+            --info-color: #1976d2;
+        }
+        [data-theme="dark"] {
+            --bg-color: #1a1a1a;
+            --text-color: #f0f0f0;
+            --banner-color: #2d4a6b;
+            --card-bg: #2c2c2c;
+            --button-bg: #333333;
+            --link-color: #8ab4f8;
+            --alert-color: #ff6b6b;
+            --tip-color: #66bb6a;
+            --info-color: #42a5f5;
+        }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            transition: background 0.3s, color 0.3s;
+        }
+        .theme-toggle {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 100;
+        }
+        #themeButton {
+            background: var(--button-bg);
+            border: none;
+            border-radius: 50%;
+            width: 2.5rem;
+            height: 2.5rem;
+            cursor: pointer;
+            color: var(--text-color);
+            font-size: 1.2rem;
+        }
+        .banner {
+            background-color: var(--banner-color);
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-bottom: 2rem;
+        }
+        .banner h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        .banner p {
+            margin: 0.5rem 0;
+            font-size: 1.1rem;
+        }
+        .banner small {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        main {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        section {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: var(--banner-color);
+            border-bottom: 1px solid var(--banner-color);
+            padding-bottom: 0.5rem;
+        }
+        h3 {
+            color: var(--banner-color);
+            margin-top: 1.5rem;
+        }
+        ul {
+            padding-left: 1.5rem;
+        }
+        li {
+            margin-bottom: 0.7rem;
+        }
+        a {
+            color: var(--link-color);
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        [data-theme="dark"] footer {
+            color: #aaa;
+        }
+        .warning {
+            background: #fff3cd;
+            color: #856404;
+            padding: 1rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+        [data-theme="dark"] .warning {
+            background: #3e2f00;
+            color: #ffc107;
+        }
+        .alert {
+            background: rgba(211, 47, 47, 0.1);
+            color: var(--alert-color);
+            padding: 1rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+            border-left: 4px solid var(--alert-color);
+        }
+        [data-theme="dark"] .alert {
+            background: rgba(211, 47, 47, 0.2);
+        }
+        .tip {
+            background: rgba(46, 125, 50, 0.1);
+            color: var(--tip-color);
+            padding: 1rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+            border-left: 4px solid var(--tip-color);
+        }
+        [data-theme="dark"] .tip {
+            background: rgba(46, 125, 50, 0.2);
+        }
+        .info {
+            background: rgba(25, 118, 210, 0.1);
+            color: var(--info-color);
+            padding: 1rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+            border-left: 4px solid var(--info-color);
+        }
+        [data-theme="dark"] .info {
+            background: rgba(25, 118, 210, 0.2);
+        }
+        .feature-box {
+            border-left: 4px solid var(--banner-color);
+            padding-left: 1rem;
+            margin: 1rem 0;
+            background: rgba(74, 111, 165, 0.1);
+            padding: 1rem;
+            border-radius: 4px;
+        }
+        [data-theme="dark"] .feature-box {
+            background: rgba(45, 74, 107, 0.2);
+        }
+        .case-study {
+            border-left: 4px solid var(--alert-color);
+            padding-left: 1rem;
+            margin: 1rem 0;
+            background: rgba(211, 47, 47, 0.05);
+            padding: 1rem;
+            border-radius: 4px;
+        }
+        [data-theme="dark"] .case-study {
+            background: rgba(211, 47, 47, 0.1);
+        }
+        .step {
+            margin-bottom: 1.5rem;
+        }
+        .step h4 {
+            margin-bottom: 0.5rem;
+            color: var(--banner-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="theme-toggle">
+        <button id="themeButton" aria-label="Toggle dark mode">🌓</button>
+    </div>
+
+    <header class="banner">
+        <h1>SecureCampus</h1>
+        <p>Ethical Security Awareness & Red Teaming for Schools & Colleges</p>
+        <small>Made by Aryan Giri</small>
+    </header>
+
+    <main>
+        <section>
+            <h2>⚠️ Why Security Matters for Schools & Colleges</h2>
+            <div class="alert">
+                <p>Educational institutions store <strong>highly sensitive data</strong>, including:</p>
+                <ul>
+                    <li><strong>Government-issued IDs</strong> (Aadhaar, passports, voter IDs).</li>
+                    <li><strong>Financial records</strong> (fee payments, scholarships, bank details).</li>
+                    <li><strong>Health records</strong> (medical histories, disability accommodations).</li>
+                    <li><strong>Academic records</strong> (grades, disciplinary actions).</li>
+                    <li><strong>Biometric data</strong> (fingerprints, facial recognition).</li>
+                </ul>
+                <p><strong>Real-world risks:</strong></p>
+                <ul>
+                    <li><strong>Identity theft:</strong> Stolen IDs can be used for loans, fraud, or criminal impersonation.</li>
+                    <li><strong>Financial fraud:</strong> Fee payment systems are prime targets for phishing/scams.</li>
+                    <li><strong>Blackmail:</strong> Health/academic records can be weaponized.</li>
+                    <li><strong>State-level threats:</strong> Foreign actors may target student data for espionage.</li>
+                </ul>
+                <p><strong>Legal obligations:</strong> Schools are bound by data protection laws (e.g., <a href="https://gdpr.eu" target="_blank">GDPR</a>, <a href="https://meity.gov.in/writereaddata/files/DPA_2023.pdf" target="_blank">India’s DPDP Act</a>).</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>📚 Case Studies: Security Breaches in Education</h2>
+            <div class="case-study">
+                <h3>1. Delhi Public School (2021)</h3>
+                <p>A phishing attack exposed <strong>12,000+ student records</strong>, including Aadhaar numbers and parent contact details. The data was sold on the dark web for ₹50,000.</p>
+                <p><strong>Lesson:</strong> Staff training could have prevented the email compromise.</p>
+            </div>
+            <div class="case-study">
+                <h3>2. Mumbai University (2020)</h3>
+                <p>An unsecured server leaked <strong>300,000+ exam records</strong>, including student photos and signatures. The breach was discovered by a white-hat hacker.</p>
+                <p><strong>Lesson:</strong> Regular security audits are critical.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>🔍 How to Verify Real & Fake IDs (For Beginners)</h2>
+            <div class="info">
+                <p>This guide is for <strong>students and teachers</strong> who are new to online verification. We’ll cover:</p>
+                <ul>
+                    <li>When to verify an ID or profile.</li>
+                    <li>How to use <strong>reverse image search</strong> (even if you’ve never done it before).</li>
+                    <li>How to check if a person exists across social media.</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <h3>🤔 When Should You Verify?</h3>
+                <p>Verify an ID or profile if:</p>
+                <ul>
+                    <li>Someone asks for personal information (e.g., Aadhaar, bank details).</li>
+                    <li>A new teacher/staff member’s ID looks suspicious.</li>
+                    <li>A student claims to be someone else (e.g., during admissions).</li>
+                    <li>You receive a friend request from an unknown person.</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <h4>Step 1: Reverse Image Search (Check if a Photo is Stolen)</h4>
+                <p><strong>What it does:</strong> Finds where else a photo appears online. If a profile picture shows up on 10 different names, it’s likely fake.</p>
+                <p><strong>How to do it (on phone/computer):</strong></p>
+                <ol>
+                    <li>Go to <a href="https://images.google.com" target="_blank">Google Images</a>.</li>
+                    <li>Click the <strong>camera icon</strong> in the search bar.</li>
+                    <li>Upload the photo or paste the image URL.</li>
+                    <li>Check the results:
+                        <ul>
+                            <li>✅ <strong>Safe:</strong> Photo only appears on the person’s real profiles.</li>
+                            <li>❌ <strong>Fake:</strong> Photo appears on multiple names or stock photo sites.</li>
+                        </ul>
+                    </li>
+                </ol>
+                <p><strong>Example:</strong> If a new teacher’s profile photo appears on a modeling website, their ID might be fake.</p>
+            </div>
+
+            <div class="step">
+                <h4>Step 2: Face Search (Find Other Profiles of the Same Person)</h4>
+                <p><strong>What it does:</strong> Helps you find other social media accounts of the same person.</p>
+                <p><strong>How to do it:</strong></p>
+                <ol>
+                    <li>Use <a href="https://pimyeyes.com" target="_blank">PimEyes</a> or <a href="https://www.socialcatfish.com" target="_blank">Social Catfish</a>.</li>
+                    <li>Upload the person’s photo.</li>
+                    <li>Check if the face matches other profiles:
+                        <ul>
+                            <li>✅ <strong>Real:</strong> Face matches a LinkedIn/Facebook profile with the same name.</li>
+                            <li>❌ <strong>Fake:</strong> Face matches profiles with different names.</li>
+                        </ul>
+                    </li>
+                </ol>
+                <p class="warning">⚠️ Only use this for verification, not stalking. Respect privacy.</p>
+            </div>
+
+            <div class="step">
+                <h4>Step 3: Search Username Across Social Media</h4>
+                <p><strong>What it does:</strong> Checks if a person exists on multiple platforms (e.g., Instagram, Twitter, LinkedIn).</p>
+                <p><strong>How to do it:</strong></p>
+                <ol>
+                    <li>Go to <a href="https://usersearch.org" target="_blank">UserSearch</a> or <a href="https://whatsmyname.app" target="_blank">WhatsMyName</a>.</li>
+                    <li>Enter the person’s username (e.g., <code>@johndoe</code>).</li>
+                    <li>Check the results:
+                        <ul>
+                            <li>✅ <strong>Real:</strong> Username appears on 2-3 platforms with consistent details.</li>
+                            <li>❌ <strong>Fake:</strong> Username doesn’t exist anywhere or has conflicting info.</li>
+                        </ul>
+                    </li>
+                </ol>
+                <p><strong>Example:</strong> If a student’s Instagram shows them in Delhi but their Twitter says they’re in Mumbai, one account is fake.</p>
+            </div>
+
+            <div class="step">
+                <h4>Step 4: Check for Common Fake ID Signs</h4>
+                <p><strong>Red flags in IDs/profiles:</strong></p>
+                <ul>
+                    <li>Blurry or edited photos.</li>
+                    <li>No posts or friends (new account).</li>
+                    <li>Profile created recently (check join date).</li>
+                    <li>Generic names like “Andrew Smith” with no personal details.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>📍 Safe Meetups Guide</h2>
+            <h3>🌍 Online Safety</h3>
+            <ul>
+                <li>Use the <strong>verification steps above</strong> before trusting someone online.</li>
+                <li>Never share passwords, Aadhaar, or bank details.</li>
+            </ul>
+
+            <h3>📍 Offline Safety</h3>
+            <div class="tip">
+                <p><strong>Never meet at home or school.</strong> Instead, choose:</p>
+                <ul>
+                    <li><strong>Unknown marts near police stations:</strong> Public and safe.</li>
+                    <li><strong>Clinics/hospitals:</strong> Most allow entry even without an appointment.</li>
+                </ul>
+                <p><strong>Pro Tips:</strong></p>
+                <ul>
+                    <li>Bring <strong>a parent or trusted adult</strong>.</li>
+                    <li>Share your live location with family.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>🚨 Physical Access Risks</h2>
+            <p>Common vulnerabilities in schools/colleges:</p>
+            <ul>
+                <li><strong>Washroom Request:</strong> Indian law allows public washroom use. Guards rarely question this.</li>
+                <li><strong>Fake Meetings:</strong> Claiming a staff meeting can grant access (avoid real names/photos).</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>🛡️ Red Team Exercises</h2>
+            <p>Ethical security testing (with permission!):</p>
+            <ul>
+                <li><strong>Unlocked Labs:</strong> Check if computer labs are secured during breaks.</li>
+                <li><strong>Phishing Simulations:</strong> Send mock phishing emails to staff/students.</li>
+            </ul>
+            <div class="warning">
+                <strong>Legal Note:</strong> Always obtain written permission before testing.
+            </div>
+        </section>
+
+        <section>
+            <h2>🌐 Featured OSINT Resource: ary.osint</h2>
+            <div class="feature-box">
+                <p><a href="https://giriaryan694-a11y.github.io/ary.osint/" target="_blank">ary.osint</a> is a <strong>comprehensive directory</strong> of OSINT tools for beginners and experts.</p>
+                <p><a href="https://giriaryan694-a11y.github.io/ary.osint/" target="_blank">Explore ary.osint →</a></p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>This project is for <strong>educational purposes only</strong>. Always act ethically and legally.</p>
+        <p><a href="https://github.com/yourusername/SecureCampus" target="_blank">View on GitHub</a></p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeButton = document.getElementById('themeButton');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const currentTheme = localStorage.getItem('theme') || (prefersDark ? 'dark' : 'light');
+
+            document.body.setAttribute('data-theme', currentTheme);
+            themeButton.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+
+            themeButton.addEventListener('click', () => {
+                const newTheme = document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+                document.body.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                themeButton.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+            });
+        });
+    </script>
+</body>
+  </html>
+                     
